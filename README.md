@@ -99,8 +99,8 @@ swarms/
 |---|---|
 | Build a high-quality agent for real-world use in DeFi/Finance | ✅ Multi-agent investment committee |
 | Enable Frenzy Mode | ✅ Full bonding curve + trade terminal |
-| Publish on Swarms Marketplace | 🔜 Ready for deployment |
-| Tokenize and list for sale | 🔜 `$VCB` token configured |
+| Publish on Swarms Marketplace | ✅ Published on Swarms World |
+| Tokenize and list for sale | ✅ `$VCB` token is live & trading |
 | Real-world utility | ✅ Investment analysis across any Solana token |
 
 ---
