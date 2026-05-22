@@ -5,12 +5,14 @@ import './TokenInput.css';
 
 interface TokenInputProps {
   onSubmit: (token: string) => void;
+  onReset: () => void;
   isAnalyzing: boolean;
+  hasResult: boolean;
 }
 
 const SUGGESTED_TOKENS = ['SOL', 'JUP', 'WIF', 'BONK', 'RAY', 'RNDR', 'HNT'];
 
-export default function TokenInput({ onSubmit, isAnalyzing }: TokenInputProps) {
+export default function TokenInput({ onSubmit, onReset, isAnalyzing, hasResult }: TokenInputProps) {
   const [value, setValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,6 +27,12 @@ export default function TokenInput({ onSubmit, isAnalyzing }: TokenInputProps) {
   const handleSuggestionClick = (token: string) => {
     setValue(token);
     onSubmit(token);
+  };
+
+  const handleResetClick = () => {
+    setValue('');
+    onReset();
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -54,13 +62,30 @@ export default function TokenInput({ onSubmit, isAnalyzing }: TokenInputProps) {
               className="token-input"
               placeholder="Enter token or protocol (e.g. SOL, JUP, WIF)..."
               value={value}
-              onChange={(e) => setValue(e.target.value.toUpperCase())}
+              onChange={(e) => {
+                const newVal = e.target.value.toUpperCase();
+                setValue(newVal);
+                if (newVal.trim() === '') {
+                  onReset();
+                }
+              }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               disabled={isAnalyzing}
               id="token-search-input"
             />
           </form>
+          {(value || hasResult) && !isAnalyzing && (
+            <motion.button
+              type="button"
+              className="reset-button"
+              onClick={handleResetClick}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Reset
+            </motion.button>
+          )}
           <motion.button
             className="analyze-button"
             onClick={handleSubmit}

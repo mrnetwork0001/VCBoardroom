@@ -71,6 +71,15 @@ function App() {
     setWalletBalance(null);
   }, []);
 
+  // Reset boardroom state
+  const handleReset = useCallback(() => {
+    setCurrentToken(null);
+    setMessages([]);
+    setVerdict(null);
+    setActiveAgent(null);
+    setErrorMessage(null);
+  }, []);
+
   // Check backend status on mount & eagerly connect wallet if trusted
   useEffect(() => {
     checkBackendHealth().then((up) => {
@@ -211,7 +220,9 @@ function App() {
 
           <TokenInput 
             onSubmit={runAnalysis} 
+            onReset={handleReset}
             isAnalyzing={isAnalyzing} 
+            hasResult={!!currentToken || messages.length > 0}
           />
         </section>
 
