@@ -12,7 +12,7 @@ import { runAnalysis as apiRunAnalysis, checkBackendHealth } from './utils/apiCl
 import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import './App.css';
 
-const SOLANA_RPC_ENDPOINT = 'https://api.mainnet-beta.solana.com';
+const SOLANA_RPC_ENDPOINT = import.meta.env.VITE_SOLANA_RPC_ENDPOINT || 'https://api.devnet.solana.com';
 
 function App() {
   const [currentToken, setCurrentToken] = useState<string | null>(null);

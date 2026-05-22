@@ -7,6 +7,7 @@ frontend/node_modules/
 backend/.env
 
 # Build outputs
+backend/agent_workspace/
 frontend/dist/
 __pycache__/
 *.pyc

@@ -103,7 +103,8 @@ export default function VerdictCard({ verdict, token, walletAddress, onRefreshBa
     }
 
     try {
-      const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+      const rpcEndpoint = import.meta.env.VITE_SOLANA_RPC_ENDPOINT || 'https://api.devnet.solana.com';
+      const connection = new Connection(rpcEndpoint, 'confirmed');
       const fromPubkey = new PublicKey(walletAddress);
       const toPubkey = new PublicKey(walletAddress); // self-deposit to vault
       const lamports = Math.round(parsedAmount * LAMPORTS_PER_SOL);
