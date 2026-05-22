@@ -18,7 +18,7 @@ The Virtual VC Boardroom simulates a hedge fund investment committee meeting. Wh
 ### Why It Stands Out
 
 - **Multi-Agent Debate System**: Not just Q&A — agents *debate* and *challenge* each other's findings
-- **Frenzy Mode**: Toggle to activate a simulated bonding curve trading terminal for the agent's own token (`$BOARDROOM`)
+- **Frenzy Mode**: Toggle to activate a simulated bonding curve trading terminal for the agent's own token (`$VCB`)
 - **Production-Ready Backend**: Built on the official `swarms` Python framework with FastAPI
 - **Stunning UI**: Glassmorphic dark dashboard with soundwave animations, typing indicators, and dynamic glows
 
@@ -100,7 +100,7 @@ swarms/
 | Build a high-quality agent for real-world use in DeFi/Finance | ✅ Multi-agent investment committee |
 | Enable Frenzy Mode | ✅ Full bonding curve + trade terminal |
 | Publish on Swarms Marketplace | 🔜 Ready for deployment |
-| Tokenize and list for sale | 🔜 `$BOARDROOM` token configured |
+| Tokenize and list for sale | 🔜 `$VCB` token configured |
 | Real-world utility | ✅ Investment analysis across any Solana token |
 
 ---
