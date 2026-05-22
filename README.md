@@ -2,7 +2,7 @@
 
 **Multi-Agent Investment Intelligence Platform** — Built for the [Swarms ACM Hackathon 2026](https://docs.swarms.ai/docs/marketplace/acm-hackathon)
 
-> Four AI agents — Security Auditor, Quant, Sentiment Analyst, and Lead Partner — debate the investment thesis of any cryptocurrency token in real-time.
+> Four AI agents: Security Auditor, Quant, Sentiment Analyst, and Lead Partner - debate the investment thesis of any cryptocurrency token in real-time.
 
 ---
 

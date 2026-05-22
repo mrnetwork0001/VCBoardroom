@@ -203,8 +203,7 @@ function App() {
           >
             <h2>Convene Your Investment Committee</h2>
             <p>
-              Four AI agents — Security Auditor, Quant, Sentiment Analyst, and Lead Partner
-              — will debate the investment thesis of any token in real-time.
+              Four AI agents: Security Auditor, Quant, Sentiment Analyst, and Lead Partner - will debate the investment thesis of any token in real-time.
             </p>
           </motion.div>
 
