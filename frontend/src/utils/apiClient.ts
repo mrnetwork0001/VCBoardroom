@@ -7,18 +7,6 @@ import { type DebateResult, type AgentMessage, AGENT_PROFILES } from '../data/mo
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-interface ApiReport {
-  agent: string;
-  name: string;
-  content: string;
-}
-
-interface ApiAnalyzeResponse {
-  token: string;
-  reports: ApiReport[];
-  success: boolean;
-}
-
 /**
  * Check if the Python backend is running
  */

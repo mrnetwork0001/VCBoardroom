@@ -9,7 +9,7 @@ interface DebatePanelProps {
 }
 
 // Fallback cleaner for agent content to remove prepended queries/market briefings
-function cleanAgentContent(content: string, agentId: string): string {
+function cleanAgentContent(content: string, _agentId?: string): string {
   let clean = content.trim();
   
   // 1. Remove prompt text prepended by Swarms
@@ -254,7 +254,7 @@ export default function DebatePanel({ messages, activeAgent }: DebatePanelProps)
             </motion.div>
           ) : (
             messages.map((msg, index) => {
-              const agent = AGENT_PROFILES[msg.agent];
+              const agent = AGENT_PROFILES[msg.agent] as any;
               const cleanContent = cleanAgentContent(msg.content, msg.agent);
               const stats = extractQuickStats(cleanContent, msg.agent);
               const previewText = getSnippet(cleanContent);
