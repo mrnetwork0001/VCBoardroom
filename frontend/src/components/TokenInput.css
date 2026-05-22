@@ -1,0 +1,182 @@
+/* TokenInput.css */
+
+.token-input-wrapper {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.token-input-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  transition: all var(--transition-normal);
+}
+
+.token-input-container.focused {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.12), var(--shadow-md);
+}
+
+.token-input-container.analyzing {
+  border-color: var(--agent-lead);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
+}
+
+.input-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input-icon {
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.token-input {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.token-input::placeholder {
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.token-input:disabled {
+  opacity: 0.5;
+}
+
+.analyze-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--accent-primary), #6366f1);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.02em;
+}
+
+.analyze-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-hover), #818cf8);
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.3);
+}
+
+.analyze-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.analyzing-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.analyzing-text .dot {
+  font-size: 8px;
+  animation: typing-dot 1.4s infinite;
+}
+
+.analyzing-text .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.analyzing-text .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Suggestions */
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.suggestions-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.suggestion-chip {
+  padding: 5px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.suggestion-chip:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+/* Agent Progress */
+.agent-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.agent-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.agent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-glow 2s infinite;
+}
+
+.agent-progress-name {
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex: 1;
+}
+
+.agent-progress-status {
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
