@@ -65,7 +65,7 @@ export default function TokenInput({ onSubmit, onReset, isAnalyzing, hasResult }
               onChange={(e) => {
                 const newVal = e.target.value.toUpperCase();
                 setValue(newVal);
-                if (newVal.trim() === '') {
+                if (hasResult || newVal.trim() === '') {
                   onReset();
                 }
               }}
