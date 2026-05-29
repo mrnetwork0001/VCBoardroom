@@ -27,6 +27,9 @@ function App() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showLanding, setShowLanding] = useState(true);
 
+  // Mobile menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Real wallet states
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
@@ -73,6 +76,11 @@ function App() {
       }
     }
   }, []);
+
+  // Close mobile menu when landing page status changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [showLanding]);
 
   const entryIsUser = (entry: any) => {
     return entry.isUser;
@@ -466,7 +474,7 @@ function App() {
       <div className="floating-decor" style={{ top: '88%', left: '5%', fontSize: '36px' }}>🦀</div>
 
       {/* Header */}
-      <header className="app-header">
+      <header className={`app-header ${!showLanding ? 'boardroom' : ''}`}>
         <div className="header-left" onClick={() => setShowLanding(true)} style={{ cursor: 'pointer' }} title="Go to landing page">
           <div className="logo">
             <span className="logo-icon">🏛️</span>
@@ -560,7 +568,105 @@ function App() {
               Connect Wallet
             </button>
           )}
+
+          {/* Hamburger Menu Button (visible on mobile only) */}
+          {!showLanding && (
+            <button 
+              className={`hamburger-menu-btn ${mobileMenuOpen ? 'open' : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              title="Menu"
+            >
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+            </button>
+          )}
         </div>
+
+        {/* Mobile Dropdown Drawer */}
+        <AnimatePresence>
+          {!showLanding && mobileMenuOpen && (
+            <motion.div 
+              className="mobile-menu-drawer glass-strong"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="mobile-menu-content">
+                {/* Backend Status Indicator inside mobile menu */}
+                <div className={`backend-status ${backendStatus}`} title={
+                  backendStatus === 'online'
+                    ? 'Connected to live AI backend — real Swarms agents active'
+                    : backendStatus === 'checking'
+                    ? 'Checking backend connection...'
+                    : 'Backend offline — live AI analysis unavailable. Run python main.py to start.'
+                }>
+                  <span className={`status-dot ${backendStatus}`} />
+                  <span className="status-text">
+                    {backendStatus === 'online' ? '🧠 LIVE AI' : backendStatus === 'checking' ? '🧠 Checking...' : '🐻 OFFLINE'}
+                  </span>
+                </div>
+
+                {/* Roast Mode Toggle inside mobile menu */}
+                <div 
+                  className={`roast-mode-toggle ${degenMode ? 'active' : ''}`} 
+                  onClick={() => {
+                    handleDegenModeToggle();
+                    setMobileMenuOpen(false);
+                  }}
+                  title={
+                    !walletAddress 
+                      ? "Connect wallet to unlock Roast Mode (Premium)" 
+                      : (vcbBalance !== null && vcbBalance < 1000)
+                      ? `Insufficient VCB (${vcbBalance}/1000).`
+                      : "Click to toggle Roast Mode"
+                  }
+                >
+                  <span className="fire-emoji">🌶️</span>
+                  <span className="roast-text">
+                    {degenMode ? 'ROAST MODE ON' : 'Roast Mode'}
+                  </span>
+                  {vcbBalance !== null && (
+                    <span className="vcb-badge">
+                      {vcbBalance} $VCB
+                    </span>
+                  )}
+                </div>
+
+                {/* Mobile Stats badges */}
+                <div className="mobile-stats-grid">
+                  <div className="stat-badge interactive" onClick={() => {
+                    setShowLeaderboardModal(true);
+                    setMobileMenuOpen(false);
+                  }} title="View Predict-to-Earn Leaderboard">
+                    <span className="stat-badge-value">🐳</span>
+                    <span className="stat-badge-label">Leaderboard</span>
+                  </div>
+                  <div className="stat-badge">
+                    <span className="stat-badge-value">{analysisCount}</span>
+                    <span className="stat-badge-label">Analyses</span>
+                  </div>
+                  <div className="stat-badge">
+                    <span className="stat-badge-value">5</span>
+                    <span className="stat-badge-label">Agents</span>
+                  </div>
+                </div>
+
+                {/* Home nav link inside mobile menu */}
+                <div className="mobile-nav-links">
+                  <button className="nav-btn" onClick={() => {
+                    setShowLanding(true);
+                    setMobileMenuOpen(false);
+                  }}>
+                    Home
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
