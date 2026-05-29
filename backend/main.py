@@ -33,7 +33,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — allow frontend dev server
+# CORS — allow frontend dev server and Vercel deployments
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -41,7 +41,9 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://vc-boardroom.vercel.app",
     ],
+    allow_origin_regex=r"https://vc-boardroom-.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
