@@ -74,7 +74,7 @@ function extractQuickStats(content: string, agentId: string) {
       stats.badge = 'Sentiment Tracked';
     }
   } else if (agentId === 'lead') {
-    const verdictMatch = content.match(/Verdict:\s*(?:🟢\s*|🔴\s*|🟡\s*)?(GO|NO-GO|HOLD)/i);
+    const verdictMatch = content.match(/Verdict:\s*(?:🟢\s*|🔴\s*|🟡\s*|🐂\s*|🐻\s*|🦀\s*)?(GO|NO-GO|HOLD)/i);
     const scoreMatch = content.match(/Composite\s*Score:\s*(\d+)\/(\d+)/i);
     if (verdictMatch) {
       const v = verdictMatch[1].toUpperCase();
@@ -220,13 +220,13 @@ export default function DebatePanel({ messages, activeAgent }: DebatePanelProps)
     <div className="debate-panel">
       <div className="debate-header">
         <div className="debate-header-left">
-          <div className="debate-icon">💬</div>
+          <div className="debate-icon">🎙️</div>
           <div>
             <h3 className="debate-title">Board Debate Transcript</h3>
             <p className="debate-subtitle">
               {messages.length === 0
                 ? 'Waiting for analysis request...'
-                : `${messages.length} of 4 analysts reported`}
+                : `${messages.length} of 5 analysts reported`}
             </p>
           </div>
         </div>

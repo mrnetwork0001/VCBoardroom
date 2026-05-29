@@ -3,7 +3,7 @@
 // ============================================
 
 export interface AgentMessage {
-  agent: 'security' | 'quant' | 'sentiment' | 'lead';
+  agent: 'security' | 'quant' | 'sentiment' | 'meme' | 'lead';
   content: string;
   timestamp: number;
   metrics?: Record<string, string | number>;
@@ -24,7 +24,7 @@ export const AGENT_PROFILES = {
   security: {
     name: 'Security Auditor',
     title: 'Chief Security Officer',
-    emoji: '🔒',
+    emoji: '🛡️',
     color: 'var(--agent-security)',
     bgColor: 'var(--agent-security-bg)',
     glowColor: 'var(--agent-security-glow)',
@@ -33,7 +33,7 @@ export const AGENT_PROFILES = {
   quant: {
     name: 'The Quant',
     title: 'Quantitative Analyst',
-    emoji: '📊',
+    emoji: '🧬',
     color: 'var(--agent-quant)',
     bgColor: 'var(--agent-quant-bg)',
     glowColor: 'var(--agent-quant-glow)',
@@ -42,16 +42,25 @@ export const AGENT_PROFILES = {
   sentiment: {
     name: 'Sentiment Analyst',
     title: 'Narrative Strategist',
-    emoji: '🐦',
+    emoji: '📢',
     color: 'var(--agent-sentiment)',
     bgColor: 'var(--agent-sentiment-bg)',
     glowColor: 'var(--agent-sentiment-glow)',
     description: 'Social media sentiment, narrative tracking, and hype detection',
   },
+  meme: {
+    name: 'Meme Strategist',
+    title: 'Cultural Resonance Expert',
+    emoji: '🐸',
+    color: 'var(--agent-meme)',
+    bgColor: 'var(--agent-meme-bg)',
+    glowColor: 'var(--agent-meme-glow)',
+    description: 'Virality potential, ticker resonance, mascot appeal, and cultural mindshare',
+  },
   lead: {
     name: 'Lead Partner',
     title: 'Managing Director',
-    emoji: '🏛️',
+    emoji: '💼',
     color: 'var(--agent-lead)',
     bgColor: 'var(--agent-lead-bg)',
     glowColor: 'var(--agent-lead-glow)',

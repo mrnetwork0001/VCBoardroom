@@ -30,20 +30,21 @@ export default function BoardroomTable({ activeAgent, analyzedToken }: Boardroom
         </div>
 
         {/* Agent seats */}
-        {agents.map(([key, agent], index) => {
+        {agents.map(([key, agent]) => {
           const isActive = activeAgent === key;
-          const positions = [
-            { top: '-10px', left: '50%', transform: 'translateX(-50%)' },    // top
-            { top: '50%', right: '-10px', transform: 'translateY(-50%)' },   // right
-            { bottom: '-10px', left: '50%', transform: 'translateX(-50%)' }, // bottom
-            { top: '50%', left: '-10px', transform: 'translateY(-50%)' },    // left
-          ];
+          const positions: Record<AgentType, React.CSSProperties> = {
+            security: { top: '-25px', left: '15%', transform: 'translateX(-50%)' },
+            quant: { top: '-25px', right: '15%', transform: 'translateX(50%)' },
+            sentiment: { top: '45%', right: '-35px', transform: 'translateY(-50%)' },
+            meme: { top: '45%', left: '-35px', transform: 'translateY(-50%)' },
+            lead: { bottom: '-35px', left: '50%', transform: 'translateX(-50%)' },
+          };
 
           return (
             <motion.div
               key={key}
               className={`agent-seat agent-seat-${key} ${isActive ? 'active' : ''}`}
-              style={positions[index]}
+              style={positions[key]}
               animate={isActive ? {
                 scale: [1, 1.08, 1],
                 transition: { duration: 1.5, repeat: Infinity }

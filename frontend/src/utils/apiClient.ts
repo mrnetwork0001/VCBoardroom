@@ -52,6 +52,7 @@ export async function runAnalysis(
   token: string,
   onAgentStart: (agent: keyof typeof AGENT_PROFILES) => void,
   onAgentComplete: (message: AgentMessage) => void,
+  degenMode: boolean = false,
 ): Promise<DebateResult> {
   const backendUp = await checkBackendHealth();
   
@@ -67,7 +68,7 @@ export async function runAnalysis(
   const resp = await fetch(`${API_BASE}/api/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ token, degen_mode: degenMode }),
   });
   
   if (!resp.ok) {
@@ -154,9 +155,9 @@ function parseVerdictFromReport(report: string): DebateResult['verdict'] {
   const upper = report.toUpperCase();
   
   let decision: 'GO' | 'NO-GO' | 'HOLD' = 'HOLD';
-  if (upper.includes('NO-GO') || upper.includes('🔴')) {
+  if (upper.includes('NO-GO') || upper.includes('🔴') || upper.includes('🐻')) {
     decision = 'NO-GO';
-  } else if (upper.includes('VERDICT: GO') || upper.includes('🟢')) {
+  } else if (upper.includes('VERDICT: GO') || upper.includes('🟢') || upper.includes('🐂')) {
     decision = 'GO';
   }
   

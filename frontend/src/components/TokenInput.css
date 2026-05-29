@@ -1,4 +1,4 @@
-/* TokenInput.css */
+/* TokenInput.css — Maximalist Dopamine Redesign */
 
 .token-input-wrapper {
   width: 100%;
@@ -8,33 +8,63 @@
 
 .token-input-container {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 4px solid var(--accent-magenta);
   border-radius: var(--radius-lg);
-  padding: 16px 20px;
+  padding: 20px 24px;
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle stripe background overlay */
+.token-input-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(255, 58, 242, 0.03) 8px,
+    rgba(255, 58, 242, 0.03) 16px
+  );
+  pointer-events: none;
 }
 
 .token-input-container.focused {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.12), var(--shadow-md);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 0 4px var(--accent-magenta), 8px 8px 0 var(--accent-cyan);
+  transform: translateY(-2px);
 }
 
 .token-input-container.analyzing {
-  border-color: var(--agent-lead);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 4px var(--accent-yellow), 0 0 24px rgba(0, 245, 212, 0.4);
+  animation: wiggle 1s infinite alternate;
 }
 
 .input-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .input-icon {
-  color: var(--text-tertiary);
+  color: var(--accent-yellow);
   display: flex;
   align-items: center;
   flex-shrink: 0;
+}
+
+.input-icon svg {
+  stroke-width: 3px;
+  stroke: var(--accent-yellow);
 }
 
 .token-input {
@@ -43,67 +73,81 @@
   background: transparent;
   border: none;
   outline: none;
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .token-input::placeholder {
-  color: var(--text-tertiary);
-  font-weight: 400;
+  color: var(--text-muted);
+  font-weight: 700;
 }
 
 .token-input:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .analyze-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, var(--accent-primary), #6366f1);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple), var(--accent-cyan));
+  color: #ffffff;
+  border: 4px solid var(--accent-yellow);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
   cursor: pointer;
   white-space: nowrap;
+  box-shadow: 4px 4px 0 var(--accent-orange);
   transition: all var(--transition-fast);
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .analyze-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--accent-hover), #818cf8);
-  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.3);
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 6px 6px 0 var(--accent-orange);
+  border-color: var(--accent-cyan);
+}
+
+.analyze-button:active:not(:disabled) {
+  transform: scale(0.96);
+  box-shadow: 2px 2px 0 var(--accent-orange);
 }
 
 .analyze-button:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
+  border-color: var(--text-muted);
 }
 
 .analyzing-text {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .analyzing-text .dot {
-  font-size: 8px;
-  animation: typing-dot 1.4s infinite;
+  font-size: 10px;
+  color: var(--accent-cyan);
+  animation: typing-dot 1.2s infinite;
 }
 
 .analyzing-text .dot:nth-child(2) {
   animation-delay: 0.2s;
+  color: var(--accent-yellow);
 }
 
 .analyzing-text .dot:nth-child(3) {
   animation-delay: 0.4s;
+  color: var(--accent-magenta);
 }
 
 /* Suggestions */
@@ -111,72 +155,80 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-subtle);
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 4px dashed var(--accent-purple);
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .suggestions-label {
+  font-family: var(--font-heading);
   font-size: 12px;
-  color: var(--text-tertiary);
-  font-weight: 500;
+  color: var(--accent-cyan);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .suggestion-chip {
-  padding: 5px 12px;
+  padding: 6px 14px;
   background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
+  border: 3px solid var(--accent-orange);
   border-radius: var(--radius-full);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
-.suggestion-chip:hover {
-  background: var(--bg-elevated);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-1px);
-}
+/* Rotate suggestion chips border colors dynamically on hover */
+.suggestion-chip:nth-child(5n+1):hover { border-color: var(--accent-magenta); color: var(--accent-magenta); transform: scale(1.08) rotate(-1deg); }
+.suggestion-chip:nth-child(5n+2):hover { border-color: var(--accent-cyan); color: var(--accent-cyan); transform: scale(1.08) rotate(1deg); }
+.suggestion-chip:nth-child(5n+3):hover { border-color: var(--accent-yellow); color: var(--accent-yellow); transform: scale(1.08) rotate(-1deg); }
+.suggestion-chip:nth-child(5n+4):hover { border-color: var(--accent-orange); color: var(--accent-orange); transform: scale(1.08) rotate(1deg); }
+.suggestion-chip:nth-child(5n+5):hover { border-color: var(--accent-purple); color: var(--accent-purple); transform: scale(1.08) rotate(-1deg); }
 
 /* Agent Progress */
 .agent-progress {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-subtle);
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 4px dashed var(--accent-magenta);
 }
 
 .agent-progress-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
+  gap: 12px;
+  font-size: 13px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .agent-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
-  animation: pulse-glow 2s infinite;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .agent-progress-name {
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: var(--text-primary);
   flex: 1;
 }
 
 .agent-progress-status {
-  color: var(--text-tertiary);
+  color: var(--accent-yellow);
   font-family: var(--font-mono);
   font-size: 11px;
 }
@@ -184,22 +236,24 @@
 .reset-button {
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  padding: 12px 20px;
   background: var(--bg-tertiary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
+  color: var(--text-primary);
+  border: 4px solid var(--accent-orange);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
   cursor: pointer;
   white-space: nowrap;
+  box-shadow: 4px 4px 0 var(--accent-purple);
   transition: all var(--transition-fast);
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .reset-button:hover {
-  background: var(--bg-elevated);
-  border-color: var(--text-tertiary);
-  color: var(--text-primary);
+  transform: scale(1.05) rotate(1deg);
+  border-color: var(--accent-yellow);
+  box-shadow: 6px 6px 0 var(--accent-purple);
 }

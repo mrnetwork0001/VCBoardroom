@@ -36,7 +36,12 @@ app = FastAPI(
 # CORS — allow frontend dev server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,6 +55,7 @@ app.add_middleware(
 class AnalyzeRequest(BaseModel):
     token: str
     model_name: Optional[str] = "gpt-4o-mini"
+    degen_mode: Optional[bool] = False
 
 
 class AgentReport(BaseModel):
@@ -79,7 +85,7 @@ async def health_check():
     """Health check endpoint"""
     return HealthResponse(
         status="operational",
-        agents=4,
+        agents=5,
         framework="swarms",
     )
 
@@ -89,11 +95,12 @@ async def analyze_token(request: AnalyzeRequest):
     """
     Run a full VC Boardroom analysis for a given token and stream progress/reports.
     
-    This endpoint convenes all four AI agents:
+    This endpoint convenes all five AI agents:
     1. Security Auditor
     2. The Quant
     3. Sentiment Analyst  
-    4. Lead Partner (synthesis + verdict)
+    4. Meme Strategist
+    5. Lead Partner (synthesis + verdict)
     
     Streams events as Server-Sent Events (SSE).
     """
@@ -104,7 +111,7 @@ async def analyze_token(request: AnalyzeRequest):
     
     async def event_generator():
         try:
-            async for event in run_boardroom_analysis_stream(token, request.model_name):
+            async for event in run_boardroom_analysis_stream(token, request.model_name, request.degen_mode or False):
                 yield f"data: {json.dumps(event)}\n\n"
             yield "data: [DONE]\n\n"
         except Exception as e:
@@ -123,28 +130,35 @@ async def list_agents():
                 "id": "security",
                 "name": "Security Auditor",
                 "title": "Chief Security Officer",
-                "emoji": "🔒",
+                "emoji": "🛡️",
                 "description": "Smart contract audits, rug-pull detection, and risk assessment",
             },
             {
                 "id": "quant",
                 "name": "The Quant",
                 "title": "Quantitative Analyst",
-                "emoji": "📊",
+                "emoji": "🧬",
                 "description": "Tokenomics, FDV analysis, on-chain metrics, and valuation models",
             },
             {
                 "id": "sentiment",
                 "name": "Sentiment Analyst",
                 "title": "Narrative Strategist",
-                "emoji": "🐦",
+                "emoji": "📢",
                 "description": "Social media sentiment, narrative tracking, and hype detection",
+            },
+            {
+                "id": "meme",
+                "name": "Meme Strategist",
+                "title": "Cultural Resonance Expert",
+                "emoji": "🐸",
+                "description": "Virality potential, ticker resonance, mascot appeal, and cultural mindshare",
             },
             {
                 "id": "lead",
                 "name": "Lead Partner",
                 "title": "Managing Director",
-                "emoji": "🏛️",
+                "emoji": "💼",
                 "description": "Synthesis, final verdict, and portfolio allocation recommendation",
             },
         ]
